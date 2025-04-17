@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tính tổng tiền nhiều sản phẩm</title>
+  <title>Tính tổng tiền nhiều sản phẩm của Anh Thư</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
 </head>
 <body>
 
-  <h2>Tính tiền từ nhiều sản phẩm (tỉ giá: sp / 1 đồng)</h2>
+  <h2>Tính tiền từ nhiều sản phẩm (tỉ giá: sp / 1 lúa)</h2>
 
   <label for="numProducts">Nhập số lượng loại sản phẩm:</label>
   <input type="number" id="numProducts" min="1">
@@ -54,7 +54,7 @@
       table.innerHTML = `
         <tr>
           <th>STT</th>
-          <th>Tỉ giá (sản phẩm / đồng)</th>
+          <th>Tỉ giá (sản phẩm / lúa)</th>
           <th>Số lượng sản phẩm</th>
           <th>Thành tiền</th>
         </tr>
@@ -86,7 +86,7 @@
           tong += thanhTien;
         }
         document.getElementById("result").innerText = 
-          "Tổng tiền tất cả sản phẩm: " + tong.toFixed(2) + " đồng";
+          "Tổng tiền tất cả sản phẩm: " + tong.toFixed(2) + " lúa";
       };
 
       container.appendChild(btn);
