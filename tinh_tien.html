@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tính tổng tiền nhiều sản phẩm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    input[type="number"] {
+      width: 100px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tính tiền từ nhiều sản phẩm (tỉ giá: sp / 1 đồng)</h2>
+
+  <label for="numProducts">Nhập số lượng loại sản phẩm:</label>
+  <input type="number" id="numProducts" min="1">
+  <button onclick="taoBang()">Tạo bảng</button>
+
+  <div id="inputsArea"></div>
+  <div id="result"></div>
+
+  <script>
+    function taoBang() {
+      const n = parseInt(document.getElementById("numProducts").value);
+      const container = document.getElementById("inputsArea");
+      container.innerHTML = "";
+
+      if (!n || n <= 0) {
+        alert("Vui lòng nhập số lượng hợp lệ.");
+        return;
+      }
+
+      let table = document.createElement("table");
+      table.innerHTML = `
+        <tr>
+          <th>STT</th>
+          <th>Tỉ giá (sản phẩm / đồng)</th>
+          <th>Số lượng sản phẩm</th>
+          <th>Thành tiền</th>
+        </tr>
+      `;
+
+      for (let i = 1; i <= n; i++) {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${i}</td>
+          <td><input type="number" id="rate${i}" step="0.01" min="0.01" required></td>
+          <td><input type="number" id="quantity${i}" min="0" required></td>
+          <td id="total${i}">0</td>
+        `;
+        table.appendChild(row);
+      }
+
+      container.appendChild(table);
+
+      let btn = document.createElement("button");
+      btn.textContent = "Tính tổng tiền";
+      btn.style.marginTop = "15px";
+      btn.onclick = function () {
+        let tong = 0;
+        for (let i = 1; i <= n; i++) {
+          let rate = parseFloat(document.getElementById(`rate${i}`).value) || 0;
+          let quantity = parseFloat(document.getElementById(`quantity${i}`).value) || 0;
+          let thanhTien = (rate !== 0) ? quantity / rate : 0;
+          document.getElementById(`total${i}`).innerText = thanhTien.toFixed(2);
+          tong += thanhTien;
+        }
+        document.getElementById("result").innerText = 
+          "Tổng tiền tất cả sản phẩm: " + tong.toFixed(2) + " đồng";
+      };
+
+      container.appendChild(btn);
+    }
+  </script>
+
+</body>
+</html>
